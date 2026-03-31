@@ -1,4 +1,17 @@
+/* ─── DARK / LIGHT THEME ──────────────────────────── */
+const root         = document.documentElement;
+const themeToggle  = document.getElementById('theme-toggle');
 
+// On load: use saved preference, else default to light
+const savedTheme = localStorage.getItem('theme') || 'light';
+root.setAttribute('data-theme', savedTheme);
+
+themeToggle.addEventListener('click', () => {
+  const current = root.getAttribute('data-theme');
+  const next    = current === 'dark' ? 'light' : 'dark';
+  root.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+});
 /* ─── NAV: scroll class ───────────────────────────── */
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
