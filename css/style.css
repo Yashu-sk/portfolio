@@ -886,3 +886,16 @@ code {
   .skills__grid { grid-template-columns: 1fr; }
   .footer__inner { flex-direction: column; text-align: center; }
 }
+/* ─── CONTENT PROTECTION ──────────────────────────── */
+body {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Allow text selection inside the contact form inputs only */
+input, textarea {
+  -webkit-user-select: text;
+  user-select: text;
+}

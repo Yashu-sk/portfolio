@@ -121,3 +121,23 @@ document.getElementById('back-to-top').addEventListener('click', e => {
 /* ─── CONSOLE EASTER EGG ──────────────────────────── */
 console.log('%c{ } Backend Developer · Class of 2026', 'font-size:1rem;font-weight:600;color:#4071a0;font-family:monospace;');
 console.log('%cOpen to backend roles. Ping me at yashuyashu31166@gmail.com', 'font-size:0.85rem;color:#8a98ad;font-family:monospace;');
+
+/* ─── CONTENT PROTECTION ──────────────────────────── */
+
+// Disable right-click context menu
+document.addEventListener('contextmenu', e => e.preventDefault());
+
+// Disable common keyboard shortcuts
+document.addEventListener('keydown', e => {
+  const blocked =
+    (e.ctrlKey && ['u', 'U', 's', 'S', 'c', 'C', 'a', 'A', 'p', 'P'].includes(e.key)) || // Ctrl+U/S/C/A/P
+    (e.ctrlKey && e.shiftKey && ['i', 'I', 'j', 'J', 'c', 'C'].includes(e.key)) ||         // Ctrl+Shift+I/J/C
+    e.key === 'F12';                                                                          // F12 DevTools
+
+  if (blocked) e.preventDefault();
+});
+
+// Disable drag-to-select on images
+document.querySelectorAll('img').forEach(img => {
+  img.addEventListener('dragstart', e => e.preventDefault());
+});
