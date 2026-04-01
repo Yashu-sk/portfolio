@@ -90,16 +90,21 @@ const spyObs = new IntersectionObserver(entries => {
 
 sections.forEach(s => spyObs.observe(s));
 
+/* ─── EMAILJS SETUP ───────────────────────────────── */
+emailjs.init('FNS6mpplNPehK-1qM'); // ← paste your Public Key here
+
 /* ─── CONTACT FORM ────────────────────────────────── */
 const form    = document.getElementById('contact-form');
 const success = document.getElementById('form-success');
 
 form.addEventListener('submit', e => {
   e.preventDefault();
+
   const name  = form.querySelector('#name').value.trim();
   const email = form.querySelector('#email').value.trim();
   const msg   = form.querySelector('#message').value.trim();
 
+  // Validation
   if (!name || !email || !msg) { shakeForm(); return; }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { shakeForm(); return; }
 
@@ -107,13 +112,34 @@ form.addEventListener('submit', e => {
   btn.textContent = 'Sending…';
   btn.disabled = true;
 
-  setTimeout(() => {
+  // Send via EmailJS
+  emailjs.send(
+    'service_p195gib',   // ← paste your Service ID here
+    'template_iy226uc',  // ← paste your Template ID here
+    {
+      from_name:  name,
+      from_email: email,
+      message:    msg,
+    }
+  )
+  .then(() => {
+    success.textContent = '✓ Message sent! I`ll get back to you shortly.' ;
+    success.style.color = 'var(--green)';
     success.classList.add('show');
     form.reset();
     btn.textContent = 'Send Message';
     btn.disabled = false;
-    setTimeout(() => success.classList.remove('show'), 4500);
-  }, 1200);
+    setTimeout(() => success.classList.remove('show'), 5000);
+  })
+  .catch(err => {
+    console.error('EmailJS error:', err);
+    success.textContent = '✗ Something went wrong. Please email me directly.';
+    success.style.color = '#e05a5a';
+    success.classList.add('show');
+    btn.textContent = 'Send Message';
+    btn.disabled = false;
+    setTimeout(() => success.classList.remove('show'), 5000);
+  });
 });
 
 function shakeForm() {
