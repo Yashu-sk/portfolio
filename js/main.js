@@ -115,7 +115,7 @@ form.addEventListener('submit', e => {
   // Send via EmailJS
   emailjs.send(
     'service_p195gib',   // ← paste your Service ID here
-    'template_iy226uc',  // ← paste your Template ID here
+    'template_kjep4i1',  // ← paste your Template ID here
     {
       from_name:  name,
       from_email: email,
